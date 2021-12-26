@@ -7,18 +7,18 @@
 
 import Foundation
 
-protocol DateDataProvider: ObservableObject {
+public protocol DateDataProvider: ObservableObject {
     associatedtype Output
     
     func data(for date: Date) -> Output
 }
 
-protocol DayDataProvider: DateDataProvider {
+public protocol DayDataProvider: DateDataProvider {
     var calendar: Calendar { get }
     func dataFor(day: Int, month: Int, year: Int) -> Output
 }
 
-extension DayDataProvider {
+public extension DayDataProvider {
     
     func data(for date: Date) -> Output {
         let components = calendar.dateComponents([.year, .month, .day], from: date)
@@ -38,32 +38,32 @@ final class EmptyDateDataProvider: DateDataProvider {
 
 
 
-final class EveryOtherDay: DayDataProvider {
-    typealias Output = String?
-    var calendar: Calendar = .current
+public final class EveryOtherDay: DayDataProvider {
+    public typealias Output = String?
+    public var calendar: Calendar = .current
     
-    func dataFor(day: Int, month: Int, year: Int) -> String? {
+    public func dataFor(day: Int, month: Int, year: Int) -> String? {
         guard day % 4 == 0 else { return nil }
         
         return "\(year):\(month):\(day)"
     }
 }
 
-final class EveryFourthDayCount: DayDataProvider {
-    typealias Output = Int
-    var calendar: Calendar = .current
+public final class EveryFourthDayCount: DayDataProvider {
+    public typealias Output = Int
+    public var calendar: Calendar = .current
     
-    func dataFor(day: Int, month: Int, year: Int) -> Int {
+    public func dataFor(day: Int, month: Int, year: Int) -> Int {
         
         return day % 4
     }
 }
 
-final class RandomNumber: DayDataProvider {
-    typealias Output = Int?
-    var calendar: Calendar = .current
+public final class RandomNumber: DayDataProvider {
+    public typealias Output = Int?
+    public var calendar: Calendar = .current
     
-    func dataFor(day: Int, month: Int, year: Int) -> Int? {
+    public func dataFor(day: Int, month: Int, year: Int) -> Int? {
         guard Bool.random() else { return nil }
         return Int.random(in: 0...10)
     }
