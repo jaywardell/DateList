@@ -15,20 +15,19 @@ protocol DateDataProvider: ObservableObject {
 
 protocol DayDataProvider: DateDataProvider {
     var calendar: Calendar { get }
-    func dataFor(day: Int, month: Int, year: Int, calendar: Calendar) -> Output
+    func dataFor(day: Int, month: Int, year: Int) -> Output
 }
 
 extension DayDataProvider {
-        
+    
     func data(for date: Date) -> Output {
-//        print(#function, date)
         let components = calendar.dateComponents([.year, .month, .day], from: date)
         guard let day = components.day,
               let month = components.month,
               let year = components.year
         else { fatalError() }
         
-        return dataFor(day: day, month: month, year: year, calendar: calendar)
+        return dataFor(day: day, month: month, year: year)
     }
 }
 
@@ -42,10 +41,10 @@ final class EmptyDateDataProvider: DateDataProvider {
 final class EveryOtherDay: DayDataProvider {
     typealias Output = String?
     var calendar: Calendar = .current
-
-    func dataFor(day: Int, month: Int, year: Int, calendar: Calendar) -> String? {
+    
+    func dataFor(day: Int, month: Int, year: Int) -> String? {
         guard day % 4 == 0 else { return nil }
-
+        
         return "\(year):\(month):\(day)"
     }
 }
@@ -53,9 +52,9 @@ final class EveryOtherDay: DayDataProvider {
 final class EveryFourthDayCount: DayDataProvider {
     typealias Output = Int
     var calendar: Calendar = .current
-
-    func dataFor(day: Int, month: Int, year: Int, calendar: Calendar) -> Int {
-
+    
+    func dataFor(day: Int, month: Int, year: Int) -> Int {
+        
         return day % 4
     }
 }
@@ -63,8 +62,8 @@ final class EveryFourthDayCount: DayDataProvider {
 final class RandomNumber: DayDataProvider {
     typealias Output = Int?
     var calendar: Calendar = .current
-
-    func dataFor(day: Int, month: Int, year: Int, calendar: Calendar) -> Int? {
+    
+    func dataFor(day: Int, month: Int, year: Int) -> Int? {
         guard Bool.random() else { return nil }
         return Int.random(in: 0...10)
     }
