@@ -8,7 +8,7 @@
 import Foundation
 
 /// A RandomAccessCollection that provides a collection of dates indexed from a start date to and optional end date, with each date representing one day.
-@available(macOS 15, iOS 15, watchOS 8, tvOS 15, *)
+@available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
 final class Dates: RandomAccessCollection, BidirectionalCollection {
     
     var startIndex: Int { 0 }

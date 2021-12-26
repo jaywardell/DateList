@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(macOS 15, iOS 15, watchOS 8, tvOS 15, *)
+@available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
 public struct DateList<DateContent: View, DataProvider: DateDataProvider> {
     
     let dates: Dates
@@ -46,7 +46,7 @@ public struct DateList<DateContent: View, DataProvider: DateDataProvider> {
 
 // MARK: - DateList where DataProvider == EmptyDateDataProvider
 
-@available(macOS 15, iOS 15, watchOS 8, tvOS 15, *)
+@available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
 public extension DateList where DataProvider == EmptyDateDataProvider {
     init(startDate: Date,
          endDate: Date = Date.now,
@@ -57,7 +57,7 @@ public extension DateList where DataProvider == EmptyDateDataProvider {
     }
 }
 
-@available(macOS 15, iOS 15, watchOS 8, tvOS 15, *)
+@available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
 public extension DateList where DataProvider == EmptyDateDataProvider, DateContent == Text {
     init(startDate: Date,
          endDate: Date = Date.now,
@@ -73,7 +73,7 @@ public extension DateList where DataProvider == EmptyDateDataProvider, DateConte
 
 // MARK: - DateList: View
 
-@available(macOS 15, iOS 15, watchOS 8, tvOS 15, *)
+@available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
 extension DateList: View {
 
     public var body: some View {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(macOS 15, iOS 15, watchOS 8, tvOS 15, *)
+@available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
 extension Color {
 
     static var dateListBackground: Color {
