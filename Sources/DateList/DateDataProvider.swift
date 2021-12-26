@@ -32,6 +32,7 @@ public extension DayDataProvider {
 }
 
 public final class EmptyDateDataProvider: DateDataProvider {
+    public init() {}
     public func data(for date: Date) -> Void {}
 }
 
@@ -42,6 +43,8 @@ public final class EveryOtherDay: DayDataProvider {
     public typealias Output = String?
     public var calendar: Calendar = .current
     
+    public init() {}
+
     public func dataFor(day: Int, month: Int, year: Int) -> String? {
         guard day % 4 == 0 else { return nil }
         
@@ -53,8 +56,9 @@ public final class EveryFourthDayCount: DayDataProvider {
     public typealias Output = Int
     public var calendar: Calendar = .current
     
+    public init() {}
+
     public func dataFor(day: Int, month: Int, year: Int) -> Int {
-        
         return day % 4
     }
 }
@@ -63,6 +67,8 @@ public final class RandomNumber: DayDataProvider {
     public typealias Output = Int?
     public var calendar: Calendar = .current
     
+    public init() {}
+
     public func dataFor(day: Int, month: Int, year: Int) -> Int? {
         guard Bool.random() else { return nil }
         return Int.random(in: 0...10)
