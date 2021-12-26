@@ -92,7 +92,7 @@ extension DateList: View {
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .background(isSelected(date: date) ? Color.accentColor : Color(nsColor: .controlBackgroundColor).opacity(0.01))
+                    .background(isSelected(date: date) ? Color.accentColor : Color.dateListBackground)
                     .onTapGesture {
                         selectedDate = (selectedDate == date) ? nil : date
                     }
