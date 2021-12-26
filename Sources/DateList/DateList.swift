@@ -8,7 +8,7 @@
 import SwiftUI
 
 @available(macOS 15, iOS 15, watchOS 8, tvOS 15, *)
-struct DateList<DateContent: View, DataProvider: DateDataProvider> {
+public struct DateList<DateContent: View, DataProvider: DateDataProvider> {
     
     let dates: Dates
             
@@ -28,7 +28,7 @@ struct DateList<DateContent: View, DataProvider: DateDataProvider> {
 
     let content: (Date, DataProvider.Output)->DateContent
 
-    init(startDate: Date,
+    public init(startDate: Date,
          endDate: Date = Date.now,
          dataProvider: DataProvider,
          alignment: HorizontalAlignment = .leading,
@@ -47,7 +47,7 @@ struct DateList<DateContent: View, DataProvider: DateDataProvider> {
 // MARK: - DateList where DataProvider == EmptyDateDataProvider
 
 @available(macOS 15, iOS 15, watchOS 8, tvOS 15, *)
-extension DateList where DataProvider == EmptyDateDataProvider {
+public extension DateList where DataProvider == EmptyDateDataProvider {
     init(startDate: Date,
          endDate: Date = Date.now,
          alignment: HorizontalAlignment = .leading,
@@ -58,16 +58,15 @@ extension DateList where DataProvider == EmptyDateDataProvider {
 }
 
 @available(macOS 15, iOS 15, watchOS 8, tvOS 15, *)
-extension DateList where DataProvider == EmptyDateDataProvider, DateContent == Text {
+public extension DateList where DataProvider == EmptyDateDataProvider, DateContent == Text {
     init(startDate: Date,
          endDate: Date = Date.now,
          alignment: HorizontalAlignment = .leading,
-         selectedDate: Binding<Date?> = .constant(nil),
-         content: @escaping (Date, DataProvider.Output)->Text = Self.text(for:unused:) ) {
-        self.init(startDate: startDate, endDate: endDate, dataProvider: EmptyDateDataProvider(), alignment: alignment, selectedDate: selectedDate, content: content)
+         selectedDate: Binding<Date?> = .constant(nil)) {
+        self.init(startDate: startDate, endDate: endDate, dataProvider: EmptyDateDataProvider(), alignment: alignment, selectedDate: selectedDate, content: Self.text(for:unused:))
     }
     
-    static func text(for date: Date, unused: Void) -> Text {
+    private static func text(for date: Date, unused: Void) -> Text {
         Text(date, style: .date)
     }
 }
@@ -77,7 +76,7 @@ extension DateList where DataProvider == EmptyDateDataProvider, DateContent == T
 @available(macOS 15, iOS 15, watchOS 8, tvOS 15, *)
 extension DateList: View {
 
-    var body: some View {
+    public var body: some View {
         ScrollView {
             LazyVStack(alignment: alignment) {
                 ForEach(dates.reversed(), id: \.self) { date in

@@ -31,8 +31,8 @@ public extension DayDataProvider {
     }
 }
 
-final class EmptyDateDataProvider: DateDataProvider {
-    func data(for date: Date) -> Void {}
+public final class EmptyDateDataProvider: DateDataProvider {
+    public func data(for date: Date) -> Void {}
 }
 
 
