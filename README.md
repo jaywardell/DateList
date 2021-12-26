@@ -1,3 +1,3 @@
 # DateList
 
-A description of this package.
+A SwiftUI view that offers up a list of dates as a LazyVStack with a callback to determine what to show in each row.  The source is pretty self-exaplantory, so that's the best place to go right now...

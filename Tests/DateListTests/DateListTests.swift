@@ -2,10 +2,6 @@ import XCTest
 @testable import DateList
 
 final class DateListTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(DateList().text, "Hello, World!")
-    }
+    
+    // TODO: could maybe add some tests of Dates, but it's pretty simple
 }
