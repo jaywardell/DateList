@@ -102,7 +102,8 @@ extension DateList: View {
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .background(isSelected(date: date) ? Color.accentColor : Color.dateListBackground)
+                    .contentShape(Rectangle())
+                    .background(isSelected(date: date) ? Color.accentColor : .clear)
                     .onTapGesture {
                         if shouldSelect(date, dataProvider.data(for: date)) {
                             tapped(date: date)
