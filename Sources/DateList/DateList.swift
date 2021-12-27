@@ -26,7 +26,7 @@ public struct DateList<DateContent: View, DataProvider: DateDataProvider> {
         return Calendar.current.startOfDay(for: date) == Calendar.current.startOfDay(for: selectedDate)
     }
 
-    let content: (Date, DataProvider.Output)->DateContent
+    let content: (Date, DataProvider.Output, Bool)->DateContent
     let shouldSelect: (Date, DataProvider.Output)->Bool
 }
 
@@ -40,7 +40,7 @@ public extension DateList {
          alignment: HorizontalAlignment = .leading,
          selectedDate: Binding<Date?> = .constant(nil),
          shouldSelect: @escaping (Date, DataProvider.Output)->Bool = { _, _ in true },
-         content: @escaping (Date, DataProvider.Output)->DateContent) {
+         content: @escaping (Date, DataProvider.Output, Bool)->DateContent) {
         
         self.dates = Dates(startDate: startDate, endDate: endDate)
         self.dataProvider = dataProvider
@@ -61,7 +61,7 @@ public extension DateList where DataProvider == EmptyDateDataProvider {
          alignment: HorizontalAlignment = .leading,
          selectedDate: Binding<Date?> = .constant(nil),
          shouldSelect: @escaping (Date, DataProvider.Output)->Bool = { _, _ in true },
-         content: @escaping (Date, DataProvider.Output)->DateContent) {
+         content: @escaping (Date, DataProvider.Output, Bool)->DateContent) {
         self.init(startDate: startDate, endDate: endDate, dataProvider: EmptyDateDataProvider(), alignment: alignment, selectedDate: selectedDate, shouldSelect: shouldSelect, content: content)
     }
 }
@@ -72,12 +72,12 @@ public extension DateList where DataProvider == EmptyDateDataProvider, DateConte
          endDate: Date = Date.now,
          alignment: HorizontalAlignment = .leading,
          selectedDate: Binding<Date?> = .constant(nil),
-         shouldSelect: @escaping (Date, DataProvider.Output)->Bool = { _, _ in true },
-         content: @escaping (Date, DataProvider.Output)->Text = Self.text(for:unused:) ) {
+         shouldSelect: @escaping (Date, DataProvider.Output)->Bool = { _, _  in true },
+         content: @escaping (Date, DataProvider.Output, Bool)->Text = Self.text(for: unused: unused2:) ) {
         self.init(startDate: startDate, endDate: endDate, dataProvider: EmptyDateDataProvider(), alignment: alignment, selectedDate: selectedDate, shouldSelect: shouldSelect, content: content)
     }
     
-    static func text(for date: Date, unused: Void) -> Text {
+    static func text(for date: Date, unused: Void, unused2: Bool) -> Text {
         Text(date, style: .date)
     }
 }
@@ -95,12 +95,13 @@ extension DateList: View {
                         if alignment != .leading {
                             Spacer()
                         }
-                        content(date, dataProvider.data(for: date))
+                        content(date, dataProvider.data(for: date), isSelected(date: date))
                         
                         if alignment != .trailing {
                             Spacer()
                         }
                     }
+                    .foregroundColor(isSelected(date: date) ? .foregroundAccent : .foregroundContent)
                     .frame(maxWidth: .infinity)
                     .contentShape(Rectangle())
                     .background(isSelected(date: date) ? Color.accentColor : .clear)
