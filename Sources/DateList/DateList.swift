@@ -28,7 +28,12 @@ public struct DateList<DateContent: View, DataProvider: DateDataProvider> {
 
     let content: (Date, DataProvider.Output)->DateContent
     let shouldSelect: (Date, DataProvider.Output)->Bool
-    
+}
+
+// MARK: -
+
+@available(macOS 12, iOS 15, watchOS 8, tvOS 15, *)
+public extension DateList {
     init(startDate: Date,
          endDate: Date = Date.now,
          dataProvider: DataProvider,
